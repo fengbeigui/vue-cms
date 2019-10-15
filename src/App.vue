@@ -4,6 +4,7 @@
     <mt-header fixed title="CMS商城平台"></mt-header>
 
     <!-- 中间的 路由 router-view 区域 -->
+    <router-view></router-view>
 
     <!-- 底部 Tabbar 区域 -->
     <nav class="mui-bar mui-bar-tab">
@@ -29,7 +30,7 @@
       </router-link>
     </nav>
 
-    <h1>123</h1>
+    
   </div>
 </template>
  	
