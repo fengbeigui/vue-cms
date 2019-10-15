@@ -3,7 +3,8 @@
     <!-- 轮播图区域 -->
     <mt-swipe :auto="4000">
       <!-- 在组件中，使用v-for循环的话，一定要使用 key -->
-      <mt-swipe-item v-for="item in lunbotuList" :key="item">
+      <!-- Duplicate keys detected: . This may cause an update error.是key值的原因 -->
+      <mt-swipe-item v-for="(item,index) in lunbotuList" :key="index">
         <img :src="item.img" alt />
       </mt-swipe-item>
     </mt-swipe>
