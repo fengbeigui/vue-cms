@@ -9,23 +9,19 @@
 
     <div class="cmt-list">
       <div class="cmt-item" v-for="(item, i ) in comments" :key="i">
-        <div class="cmt-title">
-            第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}
-
-        </div>
-        <div class="cmt-body"> 
-            {{ item.content === 'undefined' ? '此用户很懒，嘛都没说': item.content }}
-            </div>
+        <div
+          class="cmt-title"
+        >第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}</div>
+        <div class="cmt-body">{{ item.content === 'undefined' ? '此用户很懒，嘛都没说': item.content }}</div>
       </div>
-
     </div>
 
-    <mt-button type="danger" size="large">加载更多</mt-button>
+    <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
   </div>
 </template>
 
 <script>
-import { Toast  } from "mint-ui";
+import { Toast } from "mint-ui";
 
 export default {
   data() {
@@ -36,7 +32,7 @@ export default {
   },
   //调用
   created() {
-      this.getComments();
+    this.getComments();
   },
   methods: {
     getComments() {
@@ -45,11 +41,18 @@ export default {
         .get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex)
         .then(res => {
           if (res.body.status === 0) {
-            this.comments = res.body.message;
+            //this.comments = res.body.message;
+            //加载更多，每当获取新评论数据的时候，不要把老数据清空覆盖，而是应该以老数据拼接上新数据
+            this.comments = this.comments.concat(res.body.message);
           } else {
-            Toast ("获取评论失败");
+            Toast("获取评论失败");
           }
         });
+    },
+    //加载更多事件功能
+    getMore() {
+      this.pageIndex++;
+      this.getComments();
     }
   },
   //子组件想用这个id的话，需要props定义
