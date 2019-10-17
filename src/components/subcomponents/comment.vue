@@ -6,21 +6,18 @@
 
     <!-- mt-button按钮是在main中添加的 -->
     <mt-button type="primary" size="large">发表评论</mt-button>
+
     <div class="cmt-list">
-      <div class="cmt-item">
-        <div class="cmt-title">第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2018-01-01 12:12:12</div>
-        <div class="cmt-body">锄禾日当午</div>
+      <div class="cmt-item" v-for="(item, i ) in comments" :key="i">
+        <div class="cmt-title">
+            第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}
+
+        </div>
+        <div class="cmt-body"> 
+            {{ item.content === 'undefined' ? '此用户很懒，嘛都没说': item.content }}
+            </div>
       </div>
 
-      <div class="cmt-item">
-        <div class="cmt-title">第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2018-01-01 12:12:12</div>
-        <div class="cmt-body">锄禾日当午</div>
-      </div>
-
-      <div class="cmt-item">
-        <div class="cmt-title">第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：2018-01-01 12:12:12</div>
-        <div class="cmt-body">锄禾日当午</div>
-      </div>
     </div>
 
     <mt-button type="danger" size="large">加载更多</mt-button>
@@ -28,7 +25,36 @@
 </template>
 
 <script>
-export default {};
+import { Toast  } from "mint-ui";
+
+export default {
+  data() {
+    return {
+      pageIndex: 1, //默认展示第一页数据
+      comments: [] //定义所有的评论为空数据
+    };
+  },
+  //调用
+  created() {
+      this.getComments();
+  },
+  methods: {
+    getComments() {
+      //评论请求
+      this.$http
+        .get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex)
+        .then(res => {
+          if (res.body.status === 0) {
+            this.comments = res.body.message;
+          } else {
+            Toast ("获取评论失败");
+          }
+        });
+    }
+  },
+  //子组件想用这个id的话，需要props定义
+  props: ["id"]
+};
 </script>
 
 <style scoped lang="scss">

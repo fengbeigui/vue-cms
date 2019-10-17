@@ -13,7 +13,7 @@
     <!-- 内容区域 -->
     <div class="content" v-html="newsinfo.content"></div>
 
-    <!-- 评论子组件区域 -->
+    <!-- 评论子组件区域 父组件向子组件传值id；this.id是下面定义的data里面存储的数据id-->
     <comment-box :id="this.id"></comment-box>
   </div>
 </template>
