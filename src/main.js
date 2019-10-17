@@ -9,8 +9,8 @@ Vue.use(VueRouter)
 //导入时间插件
 import moment from 'moment'
 //定义全局的过滤器,如果直接调用是当前时间moment(dataStr)
-Vue.filter('dateFormat',function (dataStr,pattern ="YYYY-MM-DD HH:mm:ss") {
-   return moment(dataStr).format(pattern)
+Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+    return moment(dataStr).format(pattern)
 })
 
 // 2.1 导入 vue-resource
@@ -29,12 +29,16 @@ import './lib/mui/css/mui.min.css';
 import './lib/mui/css/icons-extra.css'
 
 // 按需导入 Mint-UI 中的组件
-import { Header, Swipe, SwipeItem, Button ,Lazyload } from 'mint-ui'
+/* import { Header, Swipe, SwipeItem, Button ,Lazyload } from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
 Vue.use(Lazyload); 
+ */
+import MintUI from 'mint-ui'
+Vue.use(MintUI)
+import 'mint-ui/lib/style.css'
 
 
 // 1.3 导入自己的 router.js 路由模块

@@ -84,18 +84,27 @@ export default {
   touch-action: pan-y;
 }
 .photo-list {
+  //去掉小点
   list-style: none;
   margin: 0;
+  //左右有边距，给左右10px
   padding: 10px;
+  //最下边图片会多出10px,给最外0解决
   padding-bottom: 0;
   li {
     background-color: #ccc;
+    //居中对齐显示
     text-align: center;
+    //给上下图片一个间距
     margin-bottom: 10px;
+    //整体单个图片阴影
     box-shadow: 0 0 9px #999;
+    //相对定位
     position: relative;
     img {
+      //给真正图片百分百
       width: 100%;
+      //图片下边距有阴影，可以这样去掉
       vertical-align: middle;
     }
     img[lazy="loading"] {
@@ -105,11 +114,16 @@ export default {
     }
 
     .info {
+      //把字体颜色改成白色
       color: white;
+      //居左对齐
       text-align: left;
+      //绝对定位
       position: absolute;
       bottom: 0;
+      //字体透明度
       background-color: rgba(0, 0, 0, 0.4);
+      //设置对大高度
       max-height: 84px;
       .info-title {
         font-size: 14px;
