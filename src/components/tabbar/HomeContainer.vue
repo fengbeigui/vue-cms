@@ -68,7 +68,7 @@ export default {
     getLunbotu() {
       //看api文档
       this.$http
-        .get("http://www.liulongbin.top:3005/api/getlunbo")
+        .get("api/getlunbo")
         .then(res => {
           //console.log(res.body);
           if (res.body.status === 0) {
