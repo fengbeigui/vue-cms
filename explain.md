@@ -117,3 +117,9 @@
  	2. 获取到所有的图片列表，然后使用 v-for 指令渲染数据
  	3. 注意： img标签上的class不能去掉
  	4. 注意： 每个 图片数据对象中，必须有 w 和 h 属性
+	5.这里注意了，安装使用vue-preview报错Cannot read property 'open' of undefined 
+	解决办法：错误的原因是因为vue-preview插件的使用方法已经更新了，要根据不同版本的vue-preview使用对应的模板。我恍然大悟，立刻到GitHub中查询了一下最新的vue-preview，果然使用方法已经更新。
+	此时问题已经明朗了，在项目中我安装的是最新版本的vue-preview，但是使用模板却是以前的，所以，解决方案无非降级法和升级法。
+	这里，我使用的是降级的方案，卸载最新版本的vue-preview，重新安装指定版本：npm i vue-preview@^1.0.5 -S，问题解决！
+
+	

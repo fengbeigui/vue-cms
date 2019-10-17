@@ -18,6 +18,9 @@ import VueResource from 'vue-resource'
 // 2.2 安装 vue-resource
 Vue.use(VueResource)
 
+// 安装 图片预览插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 // 设置请求的根路径
 Vue.http.options.root = 'http://www.liulongbin.top:3005';
@@ -39,6 +42,7 @@ Vue.use(Lazyload);
 import MintUI from 'mint-ui'
 Vue.use(MintUI)
 import 'mint-ui/lib/style.css'
+
 
 
 // 1.3 导入自己的 router.js 路由模块
