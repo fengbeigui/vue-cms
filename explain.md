@@ -94,4 +94,10 @@
  	 5. 刚进入 图片分享页面的时候， 滑动条无法正常工作， 经过我们认真的分析，发现， 如果要初始化 滑动条，必须要等 DOM 元素加载完毕，所以，我们把 初始化 滑动条 的代码，搬到了 mounted 生命周期函数中；
  	 6. 当 滑动条 调试OK后，发现， tabbar 无法正常工作了，这时候，我们需要把 每个 tabbar 按钮的 样式中  `mui-tab-item` 重新改一下名字；
  	 7. 获取所有分类，并渲染 分类列表；
-
+	8//移动端Web界面滚动性能报错信息[Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive.
+	//使用全局样式样式去掉
+	* {
+	touch-action: pan-y;
+	}
+	===============
+	
