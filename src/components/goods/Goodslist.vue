@@ -1,6 +1,14 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item" v-for="item in goodslist" :key="item.id">
+
+      <!-- 普通路由方式 -->
+    <router-link
+      class="goods-item"
+      v-for="item in goodslist"
+      :key="item.id"
+      :to="`/home/goodsinfo/` + item.id"
+      tag="div"
+    >
       <img :src="item.img_url" alt />
       <h1 class="title">{{item.title}}</h1>
       <div class="info">
@@ -13,7 +21,8 @@
           <span>剩{{item.stock_quantity}}件</span>
         </p>
       </div>
-    </div>
+    </router-link>
+
 
     <!-- 添加加载更多按钮 -->
     <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
@@ -46,9 +55,9 @@ export default {
     },
     //获取更多的方法
     getMore() {
-        //根据最新的页码值
-        this.pageindex++;
-        this.getGoodsList();
+      //根据最新的页码值
+      this.pageindex++;
+      this.getGoodsList();
     }
   }
 };
