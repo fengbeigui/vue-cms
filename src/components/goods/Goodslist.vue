@@ -1,14 +1,12 @@
 <template>
   <div class="goods-list">
+    <!-- vue-router编程式导航 -->
 
-      <!-- 普通路由方式 -->
-    <router-link
-      class="goods-item"
-      v-for="item in goodslist"
-      :key="item.id"
-      :to="`/home/goodsinfo/` + item.id"
-      tag="div"
-    >
+    <!-- 在网页中，有两种跳转方式： -->
+    <!-- 方式1： 使用 a 标签 的形式叫做 标签跳转  -->
+    <!-- 方式2： 使用 window.location.href 的形式，叫做 编程式导航 -->
+    <!-- 通过点击事件，传参id的方式去获取实现跳转@click="goDetail(item.id) -->
+    <div class="goods-item" v-for="item in goodslist" :key="item.id" @click="goDetail(item.id)">
       <img :src="item.img_url" alt />
       <h1 class="title">{{item.title}}</h1>
       <div class="info">
@@ -21,8 +19,7 @@
           <span>剩{{item.stock_quantity}}件</span>
         </p>
       </div>
-    </router-link>
-
+    </div>
 
     <!-- 添加加载更多按钮 -->
     <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
@@ -58,6 +55,22 @@ export default {
       //根据最新的页码值
       this.pageindex++;
       this.getGoodsList();
+    },
+    //使用JS的形式路由导航
+    goDetail(id) {
+      //按照文档vue-router文档写的
+      //可以打印console.log(this);出来看看
+
+      // 注意： 一定要区分 this.$route 和 this.$router 这两个对象，
+      // 其中： this.$route 是路由【参数对象】，所有路由中的参数， params, query 都属于它
+      // 其中： this.$router 是一个路由【导航对象】，用它 可以方便的 使用 JS 代码，实现路由的 前进、后退、 跳转到新的 URL 地址
+      console.log(this);
+      // 1. 最简单的
+      // this.$router.push("/home/goodsinfo/" + id);
+      // 2. 传递对象
+       this.$router.push({ path: "/home/goodsinfo/" + id });
+      // 3. 传递命名的路由,这个报一个警告，显示不了页面
+      //this.$router.push({ name: 'Goodsinfo', params: { id } });
     }
   }
 };
