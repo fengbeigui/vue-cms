@@ -11,17 +11,17 @@
 
     <!-- 商品购买区 -->
     <div class="mui-card">
-      <div class="mui-card-header">商品的名称标题</div>
+      <div class="mui-card-header">{{goodsinfo.title}}</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <p>
             市场价：
-            <del>￥2399</del> 销售价:
-            <span class="now_price">￥2199</span>
+            <del>￥{{goodsinfo.market_price}}</del> 销售价:
+            <span class="now_price">￥{{goodsinfo.sell_price}}</span>
           </p>
 
           <div>
-            <span>购买数量:</span>
+            <span>购买数量:<numbox></numbox></span>
             <div class="mui-numbox" data-numbox-min="1" data-numbox-max="9">
              
               <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
@@ -43,9 +43,9 @@
       <div class="mui-card-header">商品参数</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          <p>商品货号:ushdgs56451534</p>
-          <p>库存情况:99件</p>
-          <p>上架时间:2019-10-20</p>
+          <p>商品货号:{{goodsinfo.goods_no}}</p>
+          <p>库存情况:{{goodsinfo.stock_quantity}}件</p>
+          <p>上架时间:{{goodsinfo.add_time | dateFormat}}</p>
         </div>
       </div>
       <div class="mui-card-footer">
@@ -66,16 +66,22 @@ export default {
       //参数对象不带r;
       id: this.$route.params.id, //路由参数对象中的id挂载到data上 方便后期调用
       //轮播图的数据
-      lunbotu: []
+      lunbotu: [],
+      //声明一个默认给他空对象,表示获取到的商品的信息
+      goodsinfo:{}
     };
   },
   //调用事件，和mounted()相似
   created() {
     this.getLunbotu();
+    this.getGoodsInfo();
   },
   //注册一下
   components: {
-    swiper
+    swiper,
+   
+   
+    
   },
   methods: {
     getLunbotu() {
@@ -88,6 +94,14 @@ export default {
           this.lunbotu = res.body.message;
         }
       });
+    },
+    //获取商品的信息
+    getGoodsInfo(){
+      this.$http.get('api/goods/getinfo/'+this.id).then(res=>{
+        if(res.body.status ===0){
+          this.goodsinfo = res.body.message[0];
+        }
+      })
     }
   }
 };
