@@ -11,9 +11,30 @@
 
     <!-- 商品购买区 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">商品的名称标题</div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
+        <div class="mui-card-content-inner">
+          <p>
+            市场价：
+            <del>￥2399</del> 销售价:
+            <span class="now_price">￥2199</span>
+          </p>
+
+          <div>
+            <span>购买数量:</span>
+            <div class="mui-numbox" data-numbox-min="1" data-numbox-max="9">
+             
+              <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+              <input id="test" class="mui-input-numbox" type="number" value="5" />
+              <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+            </div>
+          </div>
+
+          <p>
+            <mt-button type="primary" size="small">立即购买</mt-button>
+            <mt-button type="danger" size="small">加入购物车</mt-button>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -70,5 +91,11 @@ export default {
   background-color: #eee;
   //解决头部白色塌陷部分
   overflow: hidden;
+}
+.now_price {
+  color: red;
+  font-size: 16px;
+  //数字值 400 相当于 关键字 normal，700 等价于 bold
+  font-weight: bold;
 }
 </style>
