@@ -27,13 +27,35 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      //参数对象不带r;
+      id: this.$route.params.id, //路由参数对象中的id挂载到data上 方便后期调用
+      //轮播图的数据
+      lunbotu: []
+    };
+  },
+  //调用事件，和mounted()相似
+  created() {
+    this.getLunbotu();
+  },
+  methods: {
+    getLunbotu() {
+      this.$http.get("api/getthumimages/" + this.id).then(res => {
+        if (res.body.status === 0) {
+          this.lunbotu = res.body.message;
+        }
+      });
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
-.goods-info-item{
-    background-color: #eee;
-    //解决头部白色塌陷部分
-    overflow: hidden;
+.goods-info-item {
+  background-color: #eee;
+  //解决头部白色塌陷部分
+  overflow: hidden;
 }
 </style>
