@@ -40,11 +40,18 @@
 
     <!-- 商品参数区 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">商品参数</div>
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
+        <div class="mui-card-content-inner">
+          <p>商品货号:ushdgs56451534</p>
+          <p>库存情况:99件</p>
+          <p>上架时间:2019-10-20</p>
+        </div>
       </div>
-      <div class="mui-card-footer">页脚</div>
+      <div class="mui-card-footer">
+        <mt-button type="primary" size="large" plain>图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain>图文介绍</mt-button>
+      </div>
     </div>
   </div>
 </template>
@@ -97,5 +104,13 @@ export default {
   font-size: 16px;
   //数字值 400 相当于 关键字 normal，700 等价于 bold
   font-weight: bold;
+}
+.mui-card-footer{
+  //把父元素的flex去掉，就可以上下
+  display: block;
+
+  button{
+    margin: 15px 0;
+  }
 }
 </style>
