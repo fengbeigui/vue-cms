@@ -3,7 +3,9 @@
     <!--   商品轮播图区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner">这是一个最简单的卡片视图控件；卡片视图常用来显示完整独立的一段信息，比如一篇文章的预览图、作者信息、点赞数量等</div>
+        <div class="mui-card-content-inner">
+          <swiper :lunbotuList="lunbotu"></swiper>
+        </div>
       </div>
     </div>
 
@@ -27,6 +29,9 @@
 </template>
 
 <script>
+//导入轮播图组件
+import swiper from "../subcomponents/swiper.vue";
+
 export default {
   data() {
     return {
@@ -40,10 +45,18 @@ export default {
   created() {
     this.getLunbotu();
   },
+  //注册一下
+  components: {
+    swiper
+  },
   methods: {
     getLunbotu() {
       this.$http.get("api/getthumimages/" + this.id).then(res => {
         if (res.body.status === 0) {
+          //注意：先循环轮播图数组的没一项，为item添加img属性，因为轮播图组件中，只认识item.img,不认识item.src  遍历数组
+          res.body.message.forEach(item => {
+            item.img = item.src;
+          });
           this.lunbotu = res.body.message;
         }
       });
