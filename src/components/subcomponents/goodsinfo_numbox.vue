@@ -26,7 +26,7 @@ export default {
   mounted() {
     // 初始化数字选择框组件
     mui(".mui-numbox").numbox();
-    console.log(this.max);
+    //console.log(this.max);  //打印出来的是undefined，说明异步的获取不到
   },
   methods: {
     countChanged() {
@@ -36,6 +36,7 @@ export default {
       this.$emit("getcount", parseInt(this.$refs.numbox.value));
     }
   },
+  //父传子，通过props把max从父组件那边拿过来
   props: ["max"],
   watch: {
     // 属性监听

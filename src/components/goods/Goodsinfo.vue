@@ -32,7 +32,7 @@
             <!-- 事件的传递机制传递给numbox -->
             <span>
               购买数量:
-              <numbox @getcount="getSelectedCount"></numbox>
+              <numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox>
             </span>
 
           </div>
