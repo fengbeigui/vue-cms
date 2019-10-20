@@ -1,5 +1,16 @@
 <template>
   <div class="goods-info-item">
+
+    <!-- 来个小球 -->
+   <!--  然后来个位移，使用transition -->
+   <!-- 第二部使用钩子函数 -->
+    <transition @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter"
+    >
+      <div class="ball" v-show="ballFlag"></div>
+    </transition>
+
     <!--   商品轮播图区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
@@ -32,7 +43,7 @@
 
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small">加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -69,6 +80,8 @@ export default {
       lunbotu: [],
       //声明一个默认给他空对象,表示获取到的商品的信息
       goodsinfo:{},
+      //控制小球隐藏和显示的标识符
+      ballFlag:false,
       
     };
   },
@@ -112,7 +125,28 @@ export default {
     //点击跳转到评论页面
     goComment(id){
        this.$router.push({name:"goodscomment",params:{id}})
-    }
+    },
+    //点击添加到购物车
+    addToShopCar(){
+      //取反，点击显示,再次点击切换隐藏
+      this.ballFlag = !this.ballFlag
+    },
+    //三个钩子函数定义一下 beforeEnter  enter afterEnter
+    beforeEnter(el){
+      //小球样式 0 0 点是数字那个位置
+        el.style.transform = "translate(0,0)";
+    },
+    enter(el,done){
+      el.offsetWidth;
+      //小球位移的终点
+      el.style.transform = 'translate(93px,230px)';
+      //过渡的动效
+      //el.style.transition = 'all 1s ease'
+      el.style.transition = 'all 1s cubic-bezier(.4,-0.3,1,.68)';
+    },
+    afterEnter(el){
+      this.ballFlag = !this.ballFlag;
+    },
   }
 };
 </script>
@@ -136,5 +170,23 @@ export default {
   button{
     margin: 15px 0;
   }
+}
+
+//小球样式
+.ball{
+  //初始
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: red;
+
+  //然后来个定位,绝对定位
+  position: absolute;
+  top: 390px;
+  left: 146px;
+  //层级
+  z-index: 99;
+
+  
 }
 </style>
