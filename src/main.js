@@ -72,6 +72,16 @@ var store = new Vuex.Store({
             })
             //将删除完毕后的，最新的购物车数据，同步到本地存储中
             localStorage.setItem('car', JSON.stringify(state.car))
+        },
+        updateGoodsSelected(state,info){
+            state.car.some(item=>{
+                if(item.id == info.id){
+                    //selected商品的状态，重新定义（同步）
+                    item.selected = info.selected
+                }
+            })
+            //把最新的所有购物车商品的状态保存到 store 中去
+            localStorage.setItem('car', JSON.stringify(state.car))
         }
 
     },

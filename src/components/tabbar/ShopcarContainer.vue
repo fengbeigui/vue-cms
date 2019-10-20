@@ -5,7 +5,11 @@
       <div class="mui-card" v-for="(item,i) in goodslist" :key="item.id">
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
-            <mt-switch v-model="$store.getters.getGoodsSelected[item.id]"></mt-switch>
+            <!--change把id传过来和最新的状态 -->
+            <mt-switch
+              v-model="$store.getters.getGoodsSelected[item.id]"
+              @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"
+            ></mt-switch>
             <img :src="item.thumb_path" />
             <div class="info">
               <h1>{{item.title}}</h1>
@@ -31,11 +35,14 @@
           <div class="mui-card-content-inner jiesuan">
             <div class="left">
               <p>总计(不含运费)</p>
-              <p>已勾选商品<span class="red">0</span>件,总价 <span class="red">￥0</span></p>
+              <p>
+                已勾选商品
+                <span class="red">0</span>件,总价
+                <span class="red">￥0</span>
+              </p>
             </div>
             <mt-button type="danger">去结算</mt-button>
           </div>
-          
         </div>
       </div>
       <p>{{$store.getters.getGoodsSelected}}</p>
@@ -83,6 +90,11 @@ export default {
       this.goodslist.splice(index, 1);
       //调用main定义的方法
       this.$store.commit("removeFormCar", id);
+    },
+    //每当点击开关，把最新的开关状态同步到store中
+    selectedChanged(id, val) {
+      console.log(id + "---" + val);
+      this.$store.commit("updateGoodsSelected", { id, selected: val });
     }
   }
 };
@@ -113,12 +125,12 @@ export default {
       }
     }
   }
-  .jiesuan{
+  .jiesuan {
     display: flex;
     //左右贴边对齐
     justify-content: space-between;
-    text-align:center;
-    .red{
+    text-align: center;
+    .red {
       color: red;
       font-weight: bold;
       font-size: 16px;
