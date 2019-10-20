@@ -21,7 +21,7 @@
           </p>
 
           <div>
-            <span>购买数量:<numbox></numbox></span>
+            <span>购买数量:</span>
             <div class="mui-numbox" data-numbox-min="1" data-numbox-max="9">
              
               <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
@@ -49,8 +49,8 @@
         </div>
       </div>
       <div class="mui-card-footer">
-        <mt-button type="primary" size="large" plain>图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain>图文介绍</mt-button>
+        <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -68,7 +68,8 @@ export default {
       //轮播图的数据
       lunbotu: [],
       //声明一个默认给他空对象,表示获取到的商品的信息
-      goodsinfo:{}
+      goodsinfo:{},
+      
     };
   },
   //调用事件，和mounted()相似
@@ -102,6 +103,15 @@ export default {
           this.goodsinfo = res.body.message[0];
         }
       })
+    },
+    //点击使用编程式导航跳转到图文介绍页面
+    goDesc(id){
+      //[Vue warn]: Error in v-on handler: "ReferenceError: id is not defined" found in  说明没有传参数id
+      this.$router.push({name:"goodsdesc",params:{id}})
+    },
+    //点击跳转到评论页面
+    goComment(id){
+       this.$router.push({name:"goodscomment",params:{id}})
     }
   }
 };

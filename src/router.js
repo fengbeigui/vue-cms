@@ -17,6 +17,9 @@ import PhotoInfo from './components/photos/PhotoInfo.vue'
 import Goodslist from './components/goods/Goodslist.vue'
 //商品详细列表
 import Goodsinfo from './components/goods/Goodsinfo.vue'
+import GoodsDesc from './components/goods/GoodsDesc.vue'
+import GoodsComment from './components/goods/GoodsComment.vue'
+
 
 // 3. 创建路由对象
 var router = new VueRouter({
@@ -31,7 +34,9 @@ var router = new VueRouter({
     { path: '/home/photolist', component: PhotoList },
     { path: '/home/photoinfo/:id', component: PhotoInfo },
     { path: '/home/goodslist', component: Goodslist },
-    { path: '/home/goodsinfo/:id', component: Goodsinfo }
+    { path: '/home/goodsinfo/:id', component: Goodsinfo },
+    { path: '/home/goodsdesc/:id', component: GoodsDesc, name:'goodsdesc' },
+    { path: '/home/goodscomment/:id', component: GoodsComment , name:'goodscomment'}
   ],
   linkActiveClass: 'mui-active' // 覆盖默认的路由高亮的类，默认的类叫做 router-link-active
 })
