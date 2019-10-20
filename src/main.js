@@ -18,8 +18,8 @@ var store = new Vuex.Store({
     state: {  //this.$store.state.***
         //定义的一个购物车，将购物车中的商品的数据，用一个数组存储起来，在car数组中，存储一些商品的对象，咱们可以暂时将这个商品对象，设计成这个样子
         //{id:商品的id，count:要购买的数量，price商品的单价，selected:false}
-       // car: []
-       car: car
+        // car: []
+        car: car
     },
     mutations: { //this.$store.commit('方法的名称','按需传递唯一的参数')
         addToCar(state, goodsinfo) {
@@ -45,21 +45,35 @@ var store = new Vuex.Store({
             }
 
             // 当 更新 car 之后，把 car 数组，存储到 本地的 localStorage 中
-            localStorage.setItem('car',JSON.stringify(state.car))
+            localStorage.setItem('car', JSON.stringify(state.car))
 
         },
         //不能跟addToCar共用，修改购物车中商品的数量值
-        updateGoodsInfo(state,goodsinfo){
+        updateGoodsInfo(state, goodsinfo) {
             //分析
-            state.car.some(item=>{
-                if(item.id == goodsinfo.id){
+            state.car.some(item => {
+                if (item.id == goodsinfo.id) {
                     item.count = parseInt(goodsinfo.count)
                     return true
                 }
             })
             //当修改完商品的最新的数量，把最新的购物车数据，保存到本地存储中
-            localStorage.setItem('car',JSON.stringify(state.car))
+            localStorage.setItem('car', JSON.stringify(state.car))
+        },
+        //根据ID 从store 中的购物车中删除对应的那条商品数据
+        removeFormCar(state, id) {
+            state.car.some((item ,i)=> {
+                if (item.id == id) {
+
+                    state.car.splice(i, 1)
+
+                    return true;
+                }
+            })
+            //将删除完毕后的，最新的购物车数据，同步到本地存储中
+            localStorage.setItem('car', JSON.stringify(state.car))
         }
+
     },
     getters: { //this.$store.getters.***
         //相当于计算  计算属性，也想当于filters
@@ -70,9 +84,9 @@ var store = new Vuex.Store({
             })
             return c
         },
-        getGoodsCount(state){
+        getGoodsCount(state) {
             var G = {}
-            state.car.forEach(item=>{
+            state.car.forEach(item => {
                 //对应的键：值
                 G[item.id] = item.count
             })
