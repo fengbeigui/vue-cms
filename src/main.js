@@ -109,6 +109,24 @@ var store = new Vuex.Store({
                 o[item.id] = item.selected
             })
             return o
+        },
+        //获取价格的总价
+        getGoodsCountAndAmount(state){
+            var s = {
+                count:0, //勾选的数量
+                amount:0 //勾选的总价
+            }
+            state.car.forEach(item=>{
+                if(item.selected){
+                    //把数量加起来
+                    s.count += item.count
+                    //总价等于单价的价格和数量程起来相加
+                    s.amount += item.price * item.count
+
+                }
+            })
+            //当循环完毕的时候，可以return s出这么一个对象
+            return s ;
         }
 
 
