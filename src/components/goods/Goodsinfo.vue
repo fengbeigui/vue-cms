@@ -34,7 +34,6 @@
               购买数量:
               <numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox>
             </span>
-
           </div>
 
           <p>
@@ -131,6 +130,17 @@ export default {
     addToShopCar() {
       //取反，点击显示,再次点击切换隐藏
       this.ballFlag = !this.ballFlag;
+
+      //{id:商品的id，count:要购买的数量，price商品的单价，selected:false}
+      //拼接出一个要保存到store中car数组里的  商品信息对象
+      var goodsinfo = {
+        id: this.id,
+        count: this.selectedCount,
+        price: this.goodsinfo.sell_price,
+        selected: true
+      };
+      //调用 store 中的mutations 来将商品加入购物车
+      this.$store.commit("addToCar",goodsinfo);
     },
     //三个钩子函数定义一下 beforeEnter  enter afterEnter
     //小球动画优化思路
@@ -174,8 +184,7 @@ export default {
       //当子组件把选中的数量传递给父组件的时候，把选中的值保存到data上
       this.selectedCount = count;
       //拿到传递过来的数字
-      console.log('父组件拿到的数量值为:' + this.selectedCount);
-      
+      console.log("父组件拿到的数量值为:" + this.selectedCount);
     }
   }
 };
