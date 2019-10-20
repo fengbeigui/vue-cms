@@ -91,7 +91,16 @@ var store = new Vuex.Store({
                 G[item.id] = item.count
             })
             return G
+        },
+        //选中的商品
+        getGoodsSelected(state){
+            var o ={}
+            state.car.forEach(item=>{
+                o[item.id] = item.selected
+            })
+            return o
         }
+
 
     }
 })

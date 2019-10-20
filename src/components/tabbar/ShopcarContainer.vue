@@ -5,7 +5,7 @@
       <div class="mui-card" v-for="(item,i) in goodslist" :key="item.id">
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
-            <mt-switch></mt-switch>
+            <mt-switch v-model="$store.getters.getGoodsSelected[item.id]"></mt-switch>
             <img :src="item.thumb_path" />
             <div class="info">
               <h1>{{item.title}}</h1>
@@ -38,6 +38,7 @@
           
         </div>
       </div>
+      <p>{{$store.getters.getGoodsSelected}}</p>
     </div>
   </div>
 </template>
