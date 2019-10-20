@@ -57,6 +57,14 @@ var store = new Vuex.Store({
                 c += item.count
             })
             return c
+        },
+        getGoodsCount(state){
+            var G = {}
+            state.car.forEach(item=>{
+                //对应的键：值
+                G[item.id] = item.count
+            })
+            return G
         }
 
     }

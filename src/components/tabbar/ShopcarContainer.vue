@@ -13,7 +13,9 @@
               <h1>{{item.title}}</h1>
               <p>
                 <span class="price">￥{{item.sell_price}}</span>
-                <shopcarNunbox></shopcarNunbox>
+                <shopcarNunbox :initcount="$store.getters.getGoodsCount[item.id]"></shopcarNunbox>
+                <!-- 如何从购物车中获取商品的数量 -->
+                <!-- 1 我们可以先创建一个 空对象，然后循环购物车中所有商品的数据，把当前循环这条商品的id   作为对象的属性名 count值作为对象的属性值，这样 当把所有的商品循环一遍，就会得到一个对象：{88:2,89:1,90:4}  [item.id]中括号值取某个属性-->
                 <a href="#">删除</a>
               </p>
             </div>

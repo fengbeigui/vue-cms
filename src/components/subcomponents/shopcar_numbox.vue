@@ -6,7 +6,7 @@
       id="test"
       class="mui-input-numbox"
       type="number"
-      value="1"
+      :value="initcount"
       @change="countChanged"
       ref="numbox"
     />
@@ -31,6 +31,9 @@ export default {
         //数量改变了
     }
   },
+  //父组件向子组件传值需要的props,initcount是父组件的属性
+  //传值过来后模板上面就可以渲染值:value="initcount"
+  props:["initcount"]
 
 };
 </script>
