@@ -1,5 +1,4 @@
 <template>
-
   <div class="mui-numbox" data-numbox-min="1" style="height:25px">
     <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
     <input
@@ -24,17 +23,20 @@ export default {
   mounted() {
     // 初始化数字选择框组件
     mui(".mui-numbox").numbox();
-
   },
   methods: {
     countChanged() {
-        //数量改变了
+      //数量改变了
+      //每当数量值改变，则立即把最新的数量同步到购物车的store中，覆盖之前的数量值
+      this.$store.commit("updateGoodsInfo", {
+        id: this.goodsid,
+        count: this.$refs.numbox.value
+      });
     }
   },
   //父组件向子组件传值需要的props,initcount是父组件的属性
   //传值过来后模板上面就可以渲染值:value="initcount"
-  props:["initcount"]
-
+  props: ["initcount", "goodsid"]
 };
 </script>
  	
