@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <!-- 顶部 Header 区域 -->
-    <mt-header fixed title="CMS商城平台"></mt-header>
+    <mt-header fixed title="CMS商城平台">
+      <span slot="left" @click="goBack" v-show="flag">
+        <mt-button icon="back">返回</mt-button>
+      </span>
+    </mt-header>
 
     <!-- 中间的 路由 router-view 区域 -->
     <transition>
@@ -36,6 +40,34 @@
 </template>
  	
  	<script>
+export default {
+  data() {
+    return {
+      flag: false
+    };
+  },
+  //当在搜索界面刷新的时候也不显示返回，因为刚进的时候没有触发路由的改变，我们可以在页面加载的时候去判断一下路由地址
+  created() {
+    //三元表达示判断
+    this.flag = this.$route.path === "/home" ? false : true;
+  },
+  methods: {
+    //返回按钮事件
+    goBack() {
+      this.$router.go(-1);
+    }
+  },
+  //watch监听url地址，当它在home的目录下的时候就不要返回了
+  watch: {
+    "$route.path": function(newVal) {
+      if (newVal === "/home") {
+        this.flag = false;
+      } else {
+        this.flag = true;
+      }
+    }
+  }
+};
 </script>
  	
  	
